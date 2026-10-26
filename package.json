@@ -1,19 +1,24 @@
 {
-  "name": "buscadorpalabras",
+  "name": "plantilla",
   "version": "1.0.0",
-  "description": "",
+  "description": "plantilla basada en ES",
+  "homepage": "https://Ashenmist712.github,io/buscadorPalabras.git",
+  "license": "MIT",
+  "author": "axel",
   "main": "index.js",
- "scripts": {
-  "dev": "webpack serve --mode development",
-  "build": "webpack --mode production"
- },
+  "scripts": {
+    "build": "webpack",
+    "dev": "webpack serve --open",
+    "build2": "babel src -d controller --watch",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
+  },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@babel/core": "^8.0.9",
     "@babel/preset-env": "^8.0.7",
     "babel-loader": "^10.1.1",
+    "gh-pages": "^6.3.0",
     "html-webpack-plugin": "^5.6.8",
     "webpack": "^5.112.2",
     "webpack-cli": "^7.2.3",
