@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050505">
+  <title>Buscador de Palabras</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      min-height: 100vh;
+      background: #f4f4f4;
+      color: #f5f5f5;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .buscador {
+      min-height: 100vh;
+      padding: 38px 20px 48px;
+      background: #050505;
+      box-shadow: 0 5px 18px rgb(0 0 0 / 18%);
+    }
+
+    .buscador__contenido {
+      width: min(100%, 680px);
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 0;
+      color: #f1f1f1;
+      font-size: 22px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .buscador__descripcion {
+      margin: 13px 0 25px;
+      color: #aaa;
+      font-size: 12px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .buscador__formulario {
+      display: grid;
+      gap: 12px;
+    }
+
+    label {
+      color: #ccc;
+      font-size: 13px;
+    }
+
+    textarea,
+    input {
+      width: 100%;
+      border: 0;
+      border-bottom: 2px solid #aaa;
+      border-radius: 0;
+      background: #292929;
+      color: #f5f5f5;
+      font: inherit;
+      outline: none;
+      transition: border-color 150ms ease, background-color 150ms ease;
+    }
+
+    textarea:focus,
+    input:focus {
+      border-bottom-color: #fff;
+      background: #303030;
+    }
+
+    textarea::placeholder,
+    input::placeholder {
+      color: #999;
+      opacity: 1;
+    }
+
+    #textoInput {
+      min-height: 105px;
+      padding: 12px;
+      resize: vertical;
+    }
+
+    #palabraBuscar {
+      min-height: 42px;
+      padding: 0 12px;
+    }
+
+    .buscador__acciones {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding-top: 2px;
+    }
+
+    button {
+      min-width: 96px;
+      padding: 10px 18px;
+      border: 1px solid #ddd;
+      border-radius: 0;
+      background: transparent;
+      color: #f5f5f5;
+      font: inherit;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background-color 150ms ease, color 150ms ease;
+    }
+
+    button:hover,
+    button:focus-visible {
+      background: #f5f5f5;
+      color: #111;
+    }
+
+    button:focus-visible,
+    textarea:focus-visible,
+    input:focus-visible {
+      outline: 2px solid #f5f5f5;
+      outline-offset: 3px;
+    }
+
+    #resultado:empty,
+    #textoProcesado:empty {
+      display: none;
+    }
+
+    #resultado {
+      margin-top: 22px;
+    }
+
+    .alerta {
+      margin: 0;
+      padding: 11px 13px;
+      border: 1px solid;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .alerta--error {
+      border-color: #b94a55;
+      background: #361b1e;
+      color: #ffd9dc;
+    }
+
+    .alerta--success {
+      border-color: #438568;
+      background: #172d23;
+      color: #d2f4df;
+    }
+
+    #textoProcesado {
+      margin-top: 12px;
+      padding: 15px;
+      border: 1px solid #555;
+      color: #eee;
+      line-height: 1.7;
+      overflow-wrap: anywhere;
+      white-space: pre-wrap;
+    }
+
+    mark {
+      border-radius: 2px;
+      background: #f2d34f;
+      color: #171717;
+    }
+
+    @media (max-width: 480px) {
+      .buscador {
+        padding: 32px 18px;
+      }
+
+      h1 {
+        font-size: 20px;
+      }
+    }
+  </style>
+<script defer src="bundle.js"></script></head>
+<body>
+  <main class="buscador">
+    <div class="buscador__contenido">
+      <h1>Buscador de Palabras</h1>
+      <p class="buscador__descripcion">
+        Escribe un texto y la palabra que quieres encontrar. La búsqueda no distingue mayúsculas ni acentos.
+      </p>
+
+      <form class="buscador__formulario" id="formularioBuscador">
+        <label for="textoInput">Texto</label>
+        <textarea id="textoInput" rows="5" placeholder="Escribe o pega tu texto aquí..."></textarea>
+
+        <label for="palabraBuscar">Palabra a buscar</label>
+        <input type="text" id="palabraBuscar" placeholder="Escribe la palabra...">
+
+        <div class="buscador__acciones">
+          <button id="btn_Buscar" type="submit">Buscar</button>
+          <button id="btn_Limpiar" type="button">Limpiar</button>
+        </div>
+      </form>
+
+      <div id="resultado" aria-live="polite"></div>
+      <div id="textoProcesado" aria-label="Texto con coincidencias resaltadas"></div>
+    </div>
+  </main>
+</body>
+</html>
